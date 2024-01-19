@@ -19,6 +19,7 @@ const Login = ({ navigation }) => {
     const handleLogin = () => {
         if (username.trim()) {
             console.log({ username });
+            navigation.navigate("Home")
         } else {
             Alert.alert("Username is required.");
         }
