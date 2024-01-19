@@ -2,6 +2,7 @@
 import Home from "./screens/Home";
 import Comments from "./screens/Comments";
 import Login from "./screens/Login";
+import ShoppingList from "./screens/ShoppingList"
 
 //👇🏻 React Navigation configurations
 import { NavigationContainer } from "@react-navigation/native";
@@ -16,7 +17,7 @@ export default function App() {
                 <Stack.Screen
                     name='Login'
                     component={Login}
-                    // options={{ headerShown: false }}
+                    options={{ headerShown: false }}
                 />
                 <Stack.Screen
                     name='Home'
