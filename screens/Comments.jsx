@@ -31,7 +31,7 @@ const Comments = ({ navigation, route }) => {
             Alert.alert("Username is required to comment.");
             navigation.navigate("Login");
         }
-    }, [username]); // Dependency array with 'username', it runs only when 'username' changes
+    }, [username]);
    
 
     const addComment = () => console.log({ comment, user }, "newcomment logged line 38 Comments");
