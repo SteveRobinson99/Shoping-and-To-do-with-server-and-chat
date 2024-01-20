@@ -17,7 +17,7 @@ const ShowModal = ({ setVisible, visible }) => {
 
     const handleSubmit = () => {
         if (input.trim()) {
-            console.log({ input });
+            console.log({ input }, "new ToDo input shown at line 20 ShowModal");
             setVisible(!visible);
         }
     };

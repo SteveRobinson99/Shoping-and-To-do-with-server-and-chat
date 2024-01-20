@@ -8,17 +8,19 @@ import {
     Pressable,
 } from "react-native";
 
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 import { styles } from "../assets/Styles";
+import { UserContext } from "../Contexts/UserContext";
 
 
 
 const Login = ({ navigation }) => {
-    const [username, setUsername] = useState("");
+   
+    const { username, setUsername } = useContext(UserContext);
 
     const handleLogin = () => {
         if (username.trim()) {
-            console.log({ username });
+            setUsername(username); 
             navigation.navigate("Home")
         } else {
             Alert.alert("Username is required.");
