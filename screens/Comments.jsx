@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, StyleSheet, TextInput, Button, FlatList } from "react-native";
 
 import CommentUI from "./CommentUI";
@@ -23,16 +23,15 @@ const Comments = ({ navigation, route }) => {
     const [user, setUser] = useState("");
 
    
-          
-            if (username !== null) {
-                setUser(username);
-                console.log({ user }, "is loggedin, accessed via context line 29 comments")
-            } else {
-                Alert.alert("Username is required to comment.");
-                navigation.navigate("Login")
-            }
-        
-
+    useEffect(() => {
+        if (username !== null) {
+            setUser(username);
+            console.log({ user }, "is logged in, accessed via context line 29 comments");
+        } else {
+            Alert.alert("Username is required to comment.");
+            navigation.navigate("Login");
+        }
+    }, [username]); // Dependency array with 'username', it runs only when 'username' changes
    
 
     const addComment = () => console.log({ comment, user }, "newcomment logged line 38 Comments");
