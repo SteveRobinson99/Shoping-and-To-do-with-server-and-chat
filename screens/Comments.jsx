@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet, TextInput, Button, FlatList } from "react-native";
 
 import CommentUI from "./CommentUI";
@@ -34,7 +34,7 @@ const Comments = ({ navigation, route }) => {
         
 
    
-    // logs the comment details to the console
+
     const addComment = () => console.log({ comment, user }, "newcomment logged line 38 Comments");
 
     return (
