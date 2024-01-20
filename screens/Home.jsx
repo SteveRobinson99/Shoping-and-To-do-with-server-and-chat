@@ -40,21 +40,3 @@ const Home = () => {
 };
 
 export default Home
-
-// const styles = StyleSheet.create({
-//     screen: {
-//         flex: 1,
-//         backgroundColor: "#fff",
-//         padding: 10,
-//     },
-// header: {
-//     padding: 10,
-//     justifyContent: "space-between",
-//     flexDirection: "row",
-//     marginBottom: 20,
-// },
-// heading: {
-//     fontSize: 24,
-//     fontWeight: "bold",
-// },
-// })
