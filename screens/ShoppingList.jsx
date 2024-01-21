@@ -6,22 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
 
 
-
-
-/* Here we will have ListItems array of objects each { {name:"item_name",  favourite:boolean,  onlist:boolean}}
-Flatlist 'item_name' iff onlist and check box (which dulls out or strike thro to indicate done)
-Favourites at top
-links to 'selector component' which can add items to list(and remove items by deselecting).
-Selector should be a check box list of all items, checked ones passed to shopping list for sort filter dispaly.
-should move filter (onlist =true) to selector/make list, only pass ones to render. Makes sense to sort first too
-also need to add new items to selector (maybe remove items from selector?) - this needs a textbox to type in a new item and should add it to the selector (where it can be added to a list)
-Could use ternary to render list OR add item in scroll view (if screen not too busy)
-Need; state [listItems, setListItems]
-Sort favourites at top
-Filter only onlist;true show on Flatlist  {so new array sorted&filtered fed to Flatlist as data}
-link to selector - pass prop setListItems via route.params
-*/
-
 const ShoppingList = () => {
   const navigation = useNavigation();
     const { listItems, setListItems } = useContext(ShoppingItemsContext);
@@ -45,7 +29,7 @@ const ShoppingList = () => {
         />
         <Button
           title="Add Items"
-          onPress={() => navigation.navigate('Selector', { setListItems })}
+          onPress={() => navigation.navigate('Selector')}
         />
       </View>
     );
