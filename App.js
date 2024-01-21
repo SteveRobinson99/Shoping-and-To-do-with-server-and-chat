@@ -19,11 +19,21 @@ function CustomHeaderRight() {
   // probably extract custom header component once working as required
   return (
       <Button
-          onPress={() => navigation.navigate('ShoppingList')}
+          onPress={() => navigation.navigate('To Buy')}
           title="Shopping List"
           color="#000"
       />
   );
+}
+function CustomHeaderRightToTodo (){
+    const navigation = useNavigation();
+    return (
+        <Button
+            onPress={() => navigation.navigate('Home')}
+            title="To Do List"
+            color="#000"
+        />
+    );
 }
 
 export default function App() {
@@ -42,8 +52,9 @@ export default function App() {
                     options={{ headerRight: () => <CustomHeaderRight />}}
                 />
                 <Stack.Screen name='Comments' component={Comments} />
-                <Stack.Screen name='Needs' component={ShoppingList} />
-                <Stack.Screen name='Selector' component={Selector} />
+                <Stack.Screen name='To Buy' component={ShoppingList} options={{ headerRight: () => <CustomHeaderRightToTodo />}} />
+                <Stack.Screen name='Selector' component={Selector}
+                options={{ headerRight: () => <CustomHeaderRight />}} />
             </Stack.Navigator>
         </NavigationContainer>
         </UserProvider>

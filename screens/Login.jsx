@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
     const handleLogin = () => {
         if (username.trim()) {
             setUsername(username); 
-            navigation.navigate("Needs")
+            navigation.navigate("To Buy")
         } else {
             Alert.alert("Username is required.");
         }
