@@ -1,7 +1,9 @@
 import { SafeAreaView, Text, StyleSheet, View, FlatList, Button, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-// CheckBox - need to use comunity version
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+
+// CheckBox - need to use comunity version 'bouncy checkbox' looks ideal and very customisable
 
 /* Here we will have ListItems array of objects each { {name:"item_name",  favourite:boolean,  onlist:boolean}}
 Flatlist 'item_name' iff onlist and check box (which dulls out or strike thro to indicate done)
@@ -28,7 +30,7 @@ const ShoppingList = ({ navigation }) => {
     const renderItem = ({ item }) => (
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
         <Text>{item.name}</Text>
-        <CheckBox value={item.onlist} />
+        <BouncyCheckbox isChecked={false} text={item.onlist} onPress={() => {}} />
       </View>
     );
   
