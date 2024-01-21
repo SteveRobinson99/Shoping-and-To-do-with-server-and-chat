@@ -1,6 +1,7 @@
 import { NavigationContainer, useNavigation} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { UserProvider } from "./Contexts/UserContext";
+import { ShoppingItemsProvider } from "./Contexts/ShoppingItemsContext";
 import { Button } from "react-native";
 
 import Home from "./screens/Home";
@@ -8,6 +9,8 @@ import Comments from "./screens/Comments";
 import Login from "./screens/Login";
 import ShoppingList from "./screens/ShoppingList"
 import Selector from "./screens/Selector";
+import AddItemToSelector from "./screens/AddItemToSelector";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +42,7 @@ function CustomHeaderRightToTodo (){
 export default function App() {
     return (
       <UserProvider>
+        <ShoppingItemsProvider>
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
@@ -55,8 +59,11 @@ export default function App() {
                 <Stack.Screen name='To Buy' component={ShoppingList} options={{ headerRight: () => <CustomHeaderRightToTodo />}} />
                 <Stack.Screen name='Selector' component={Selector}
                 options={{ headerRight: () => <CustomHeaderRight />}} />
+<Stack.Screen name='AddItem' component={AddItemToSelector} />
+
             </Stack.Navigator>
         </NavigationContainer>
+        </ShoppingItemsProvider>
         </UserProvider>
     );
 }

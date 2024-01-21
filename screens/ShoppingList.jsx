@@ -1,9 +1,12 @@
 import { SafeAreaView, Text, StyleSheet, View, FlatList, Button, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { useNavigation } from '@react-navigation/native';
+import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
 
-// CheckBox - need to use comunity version 'bouncy checkbox' looks ideal and very customisable
+
+
 
 /* Here we will have ListItems array of objects each { {name:"item_name",  favourite:boolean,  onlist:boolean}}
 Flatlist 'item_name' iff onlist and check box (which dulls out or strike thro to indicate done)
@@ -19,13 +22,9 @@ Filter only onlist;true show on Flatlist  {so new array sorted&filtered fed to F
 link to selector - pass prop setListItems via route.params
 */
 
-const ShoppingList = ({ navigation }) => {
-    const [listItems, setListItems] = useState([
-      { name: "Apples", favourite: true, onlist: true },
-      { name: "Bread", favourite: false, onlist: true },
-      // Add more items as needed
-    ]);
-  
+const ShoppingList = () => {
+  const navigation = useNavigation();
+    const { listItems, setListItems } = useContext(ShoppingItemsContext);
     const sortedItems = listItems
       .filter(item => item.onlist)
       .sort((a, b) => (a.favourite === b.favourite) ? 0 : a.favourite ? -1 : 1);

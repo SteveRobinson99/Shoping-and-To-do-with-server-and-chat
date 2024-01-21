@@ -7,6 +7,8 @@ import {
     TextInput,
     Pressable,
 } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+
 
 import React, { useState, useContext} from "react";
 import { styles } from "../assets/Styles";
@@ -14,8 +16,8 @@ import { UserContext } from "../Contexts/UserContext";
 
 
 
-const Login = ({ navigation }) => {
-   
+const Login = () => {
+    const navigation = useNavigation();
     const { username, setUsername } = useContext(UserContext);
 
     const handleLogin = () => {
