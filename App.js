@@ -7,6 +7,7 @@ import Home from "./screens/Home";
 import Comments from "./screens/Comments";
 import Login from "./screens/Login";
 import ShoppingList from "./screens/ShoppingList"
+import Selector from "./screens/Selector";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,7 +42,8 @@ export default function App() {
                     options={{ headerRight: () => <CustomHeaderRight />}}
                 />
                 <Stack.Screen name='Comments' component={Comments} />
-                <Stack.Screen name='ShoppingList' component={ShoppingList} />
+                <Stack.Screen name='Needs' component={ShoppingList} />
+                <Stack.Screen name='Selector' component={Selector} />
             </Stack.Navigator>
         </NavigationContainer>
         </UserProvider>
