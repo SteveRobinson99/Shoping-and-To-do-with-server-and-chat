@@ -14,7 +14,7 @@ const ShoppingList = () => {
       .sort((a, b) => (a.favourite === b.favourite) ? 0 : a.favourite ? -1 : 1);
   
     const renderItem = ({ item }) => (
-      <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
+      <View style={{ flexDirection: 'row', padding: 10 }}>
         <Text>{item.name}</Text>
         <BouncyCheckbox isChecked={false} text={item.onlist} onPress={() => {}} />
       </View>
