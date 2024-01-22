@@ -34,9 +34,9 @@ socketIO.on("connection", (socket) => {
     console.log("🔥: A user disconnected");
   });
 });
-socket.on("error", (err) => {
-  console.log("Socket Error:", err);
-});
+// socket.on("error", (err) => {
+//   console.log("Socket Error:", err);
+// });
 
 app.get("/api", (req, res) => {
   try {
