@@ -13,12 +13,12 @@ const socketIO = require("socket.io")(http, {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const todoList = [];
+let todoList = [];
 // following generates a base36 (0-9 and a-z) string, then snips off the '0.' at the start and makes it 8 char long (each is a 0-9 OR a-z) i.e. 8 random-char letter or number
 const generateRandomID = () => Math.random().toString(36).substring(2, 10);
 
 socketIO.on("connection", (socket) => {
-  console.log(`⚡: ${socket.id} user just connected!`);
+  console.log(`⚡: ${socket.id} user just connected to Socket.io!`);
 
   socket.on("addTodo", (todo) => {    
     try {
@@ -29,9 +29,14 @@ socketIO.on("connection", (socket) => {
   }
   });
 
+  socket.on("deleteTodo", (id) => {
+    todoList = todoList.filter((todo) => todo._id !== id);
+    socket.emit("todos", todoList);
+});
+
   socket.on("disconnect", () => {
     socket.disconnect();
-    console.log("🔥: A user disconnected");
+    console.log("🔥: A user disconnected from Socket.io");
   });
 });
 // socket.on("error", (err) => {
