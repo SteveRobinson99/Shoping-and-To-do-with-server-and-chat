@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 
-import { styles } from "../assets/Styles"
+import { styles } from "../assets/Styles";
+import socket from "../utils/socket";
 
 
 const ShowModal = ({ setVisible, visible }) => {
@@ -17,7 +18,7 @@ const ShowModal = ({ setVisible, visible }) => {
 
     const handleSubmit = () => {
         if (input.trim()) {
-            console.log({ input }, "new ToDo input shown at line 20 ShowModal");
+            socket.emit("addTodo", input);
             setVisible(!visible);
         }
     };

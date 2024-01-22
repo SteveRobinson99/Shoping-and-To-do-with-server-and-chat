@@ -1,21 +1,33 @@
 import { SafeAreaView, Text, StyleSheet, View, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect, } from "react";
 import ShoppingList from "./ShoppingList";
-
+import socket from "../utils/socket";
 
 import ShowModal from "./ShowModal";
 import { styles } from "../assets/Styles"   //(to import rather than local style)
 import Todo from "./Todo";
 
 const Home = () => {
-    //for  use of modal to display 'todo' content (shopping via second modal or child tbc)
+   
     const [visible, setVisible] = useState(false);
-    // hard code sample prior to setting up Socket
-    const [data, setData] = useState([
-        { _id: "1", title: "Hello from 1", comments: [] },
-        { _id: "2", title: "Hello from 2", comments: [] },
-    ]);
+    const [data, setData] = useState([]);
+
+
+useLayoutEffect(() => {
+        socket.on("todos", (data) => setData(data));
+    }, [socket]);
+
+    useLayoutEffect(() => {
+        function fetchTodos() {
+            fetch("http://192.168.0.20:4000/todos")
+                .then((res) => res.json())
+                .then((data) => setData(data))
+                .catch((err) => console.error(err));
+        }
+        fetchTodos();
+    }, []);
+
     return (
         <SafeAreaView style={styles.screen}>
             <View style={styles.header}>
