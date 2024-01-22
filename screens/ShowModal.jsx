@@ -22,6 +22,9 @@ const ShowModal = ({ setVisible, visible }) => {
       setVisible(!visible);
     }
   };
+  const closeModal = () => {
+    setVisible(!visible);
+  };
 
   return (
     <Modal
@@ -43,7 +46,12 @@ const ShowModal = ({ setVisible, visible }) => {
 
         <Pressable onPress={handleSubmit} style={styles.modalButton}>
           <View>
-            <Text style={styles.buttonText}>Add Todo</Text>
+            <Text style={styles.buttonText}>Add ToDo</Text>
+          </View>
+        </Pressable>
+        <Pressable onPress={closeModal} style={styles.modalButton}>
+          <View>
+            <Text style={styles.buttonText}>Cancel</Text>
           </View>
         </Pressable>
       </SafeAreaView>

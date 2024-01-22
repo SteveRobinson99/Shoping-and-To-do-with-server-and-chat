@@ -34,6 +34,7 @@ socketIO.on("connection", (socket) => {
     todoList = todoList.filter((todo) => todo._id !== id);
     socketIO.emit("todos", todoList);
   });
+  // NB when using database may need to delete comments as well as todo to avoid waste storage.
 
   socket.on("disconnect", () => {
     socket.disconnect();

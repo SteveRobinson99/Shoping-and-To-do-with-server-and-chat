@@ -1,9 +1,7 @@
-import { SafeAreaView, Text, StyleSheet, View, FlatList } from "react-native";
+import { SafeAreaView, Text, View, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState, useLayoutEffect, } from "react";
-import ShoppingList from "./ShoppingList";
 import socket from "../utils/socket";
-
 import ShowModal from "./ShowModal";
 import { styles } from "../assets/Styles"   //(to import rather than local style)
 import Todo from "./Todo";
@@ -14,9 +12,18 @@ const Home = () => {
     const [data, setData] = useState([]);
 
 
-useLayoutEffect(() => {
-        socket.on("todos", (data) => setData(data));
+    useLayoutEffect(() => {
+        const todosHandler = (data) => {
+            setData(data);
+        };
+
+        socket.on("todos", todosHandler);
+
+        return () => {
+            socket.off("todos", todosHandler);
+        };
     }, [socket]);
+
 
     useLayoutEffect(() => {
         function fetchTodos() {
