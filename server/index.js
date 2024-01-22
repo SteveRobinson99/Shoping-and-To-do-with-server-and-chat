@@ -38,10 +38,17 @@ socketIO.on("connection", (socket) => {
     socket.disconnect();
     console.log("🔥: A user disconnected from Socket.io");
   });
+  
+  socket.on("addComment", (data) => {
+    let result = todoList.filter((todo) => todo._id === data.todo_id);
+    result[0].comments.unshift({
+      id: generateRandomID(),
+      title: data.comment,
+      user: data.user,
+    });
+    socket.emit("displayComments", result[0].comments);
+  });
 });
-// socket.on("error", (err) => {
-//   console.log("Socket Error:", err);
-// });
 
 app.get("/api", (req, res) => {
   try {

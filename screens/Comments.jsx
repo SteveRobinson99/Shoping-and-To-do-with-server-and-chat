@@ -4,37 +4,53 @@ import { View, StyleSheet, TextInput, Button, FlatList } from "react-native";
 import CommentUI from "./CommentUI";
 import { styles } from "../assets/Styles";
 import { UserContext } from "../Contexts/UserContext";
+import socket from "../utils/socket";
 
 const Comments = ({ navigation, route }) => {
     const [comment, setComment] = useState("");
     const { username } = useContext(UserContext);
+    const [user, setUser] = useState("");
+
+    const addComment = () =>{
+        socket.emit("addComment", { comment, todo_id: route.params.id, user});
+    }
+    
     const [commentsList, setCommentsList] = useState([
         {
             id: "1",
-            title: "Thank you",
-            user: "David",
+            title: "This is a placeholder will be deleted by actual comments",
+            user: "Dad",
         },
         {
             id: "2",
-            title: "All right",
-            user: "David",
+            title: "Another placeholder which will be deleted by actual comments",
+            user: "Dude",
         },
     ]);
-    const [user, setUser] = useState("");
 
    
     useEffect(() => {
         if (username !== null) {
-            setUser(username);
-            console.log({ user }, "is logged in, accessed via context line 29 comments");
+            // setUser(username);
+            navigation.setOptions({
+                title: route.params.title,
+            });
+            socket.emit("retrieveComments", route.params.id);
         } else {
             Alert.alert("Username is required to comment.");
             navigation.navigate("Login");
         }
     }, [username]);
    
+    socket.on("retrieveComments", (id) => {
+        let result = todoList.filter((todo) => todo._id === id);
+        socket.emit("displayComments", result[0].comments);
+    });
+    useEffect(() => {
+        socket.on("displayComments", (data) => setCommentsList(data));
+    }, [socket]);
 
-    const addComment = () => console.log({ comment, user }, "newcomment logged line 38 Comments");
+    
 
     return (
         <View style={styles.screen}>
