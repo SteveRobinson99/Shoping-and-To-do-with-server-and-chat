@@ -31,8 +31,13 @@ socketIO.on("connection", (socket) => {
   });
 
   socket.on("deleteTodo", (id) => {
-    todoList = todoList.filter((todo) => todo._id !== id);
-    socketIO.emit("todos", todoList);
+    try {
+      todoList = todoList.filter((todo) => todo._id !== id);
+      socketIO.emit("todos", todoList);
+    } catch (error) {
+      console.error("Error in deleteTodo:", error);
+      socket.emit("error", { message: "Error deleting todo item" });
+    }
   });
   // NB when using database may need to delete comments as well as todo to avoid waste storage.
 
@@ -42,20 +47,36 @@ socketIO.on("connection", (socket) => {
   });
 
   socket.on("retrieveComments", (todoId) => {
-    const todo = todoList.find((t) => t._id === todoId);
-    if (todo) {
-      socket.emit("displayComments", todo.comments);
+    try {
+      const todo = todoList.find((t) => t._id === todoId);
+      if (todo) {
+        socket.emit("displayComments", todo.comments);
+      } else {
+        throw new Error("Todo not found");
+      }
+    } catch (error) {
+      console.error("Error in retrieveComments:", error);
+      socket.emit("error", { message: "Error retrieving comments" });
     }
   });
 
   socket.on("addComment", (data) => {
-    let result = todoList.filter((todo) => todo._id === data.todo_id);
-    result[0].comments.unshift({
-      id: generateRandomID(),
-      title: data.comment,
-      user: data.user,
-    });
-    socketIO.emit("displayComments", result[0].comments);
+    try {
+      const result = todoList.find((todo) => todo._id === data.todo_id);
+      if (result) {
+        result.comments.unshift({
+          id: generateRandomID(),
+          title: data.comment,
+          user: data.user,
+        });
+        socketIO.emit("displayComments", result.comments);
+      } else {
+        throw new Error("Todo for comment not found");
+      }
+    } catch (error) {
+      console.error("Error in addComment:", error);
+      socket.emit("error", { message: "Error adding comment" });
+    }
   });
 });
 
