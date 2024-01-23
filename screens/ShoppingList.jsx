@@ -15,7 +15,6 @@ import { useNavigation } from "@react-navigation/native";
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
 import { styles } from "../assets/Styles";
 
-
 const ShoppingList = () => {
   const navigation = useNavigation();
   const { listItems, setListItems } = useContext(ShoppingItemsContext);
@@ -24,19 +23,37 @@ const ShoppingList = () => {
     "Full Shop",
   ]);
   const [shoppingListTitle, setShoppingListTitle] = useState("");
+  const [temporaryTitle, setTemporaryTitle] = useState("");
   const sortedItems = listItems
     .filter((item) => item.onlist)
     .sort((a, b) => (a.favourite === b.favourite ? 0 : a.favourite ? -1 : 1));
 
-    
+  const handleCheckboxPress = (itemName) => {
+    // Toggle the isChecked property of the item with the given name
+    setListItems(
+      listItems.map((item) =>
+        item.name === itemName ? { ...item, isChecked: !item.isChecked } : item
+      )
+    );
+  };
+
   function handleTitle() {
-    setShoppingLists([shoppingListTitle, ...shoppingLists]);
+    setShoppingListTitle(temporaryTitle);
+    setShoppingLists([temporaryTitle, ...shoppingLists]);
   }
 
   const renderItem = ({ item }) => (
     <View style={{ flexDirection: "row", padding: 10 }}>
-      <Text>{item.name}</Text>
-      <BouncyCheckbox isChecked={false} text={item.onlist} onPress={() => {}} />
+      <Text
+        style={item.isChecked ? { textDecorationLine: "line-through" } : null}
+      >
+        {item.name}
+      </Text>
+      <BouncyCheckbox
+        isChecked={item.isChecked}
+        text={item.onlist}
+        onPress={() => handleCheckboxPress(item.name)}
+      />
     </View>
   );
   const renderShoppingListTitle = ({ item }) => (
@@ -48,7 +65,7 @@ const ShoppingList = () => {
     </TouchableOpacity>
   );
 
-  return (shoppingListTitle=="" ? (
+  return shoppingListTitle == "" ? (
     <View>
       <Text
         style={{
@@ -63,8 +80,8 @@ const ShoppingList = () => {
       </Text>
       <TextInput
         style={styles.textInput}
-        value={shoppingListTitle}
-        onChangeText={(value) => setShoppingListTitle(value)}
+        value={temporaryTitle}
+        onChangeText={(value) => setTemporaryTitle(value)}
       />
       <Pressable onPress={handleTitle} style={styles.loginButton}>
         <View>
@@ -79,7 +96,7 @@ const ShoppingList = () => {
         keyExtractor={(item) => item}
       />
     </View>
-  ):(
+  ) : (
     <View>
       <FlatList
         data={sortedItems}
@@ -90,7 +107,7 @@ const ShoppingList = () => {
         title="Add Items"
         onPress={() => navigation.navigate("Selector")}
       />
-    </View>)
+    </View>
   );
 };
 
