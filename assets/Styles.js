@@ -106,4 +106,5 @@ export const styles = StyleSheet.create({
         width: "80%",
         borderRadius: 10,
     },
+    
 });

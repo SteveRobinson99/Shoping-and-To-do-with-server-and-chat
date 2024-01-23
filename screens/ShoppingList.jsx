@@ -98,6 +98,9 @@ const ShoppingList = () => {
     </View>
   ) : (
     <View>
+      <View>
+    <Text style={{color: "black", textAlign: "center", fontSize: 16}}>{shoppingListTitle}</Text>
+    </View>
       <FlatList
         data={sortedItems}
         renderItem={renderItem}
