@@ -22,12 +22,12 @@ const Selector = () => {
   // need to add check that item isnt already on list (avoid two childrn with same key (dev) error)
   const renderItem = ({ item }) => (
     <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
-      <Text>{item.name}</Text>
       <BouncyCheckbox
         isChecked={false}
         text={item.onlist}
         onPress={() => toggleItemOnList(item.name)}
-      />
+        />
+        <Text>{item.name}</Text>
     </View>
   );
 

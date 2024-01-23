@@ -36,19 +36,19 @@ const AddItemToSelector = () => {
         onChangeText={setItemName}
         placeholder="Enter item name"
       />
-      <View>
-        <Text>Favourite</Text>
+      <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
         <BouncyCheckbox
           isChecked={isFavourite}
           onPress={(isChecked) => setIsFavourite(isChecked)}
         />
+        <Text>Favourite</Text>
       </View>
-      <View>
-        <Text>On List</Text>
+      <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
         <BouncyCheckbox
           isChecked={onList}
           onPress={(isChecked) => setOnList(isChecked)}
         />
+        <Text>On List</Text>
       </View>
       <Button onPress={handleAddItem} title="Add Item" />
     </View>

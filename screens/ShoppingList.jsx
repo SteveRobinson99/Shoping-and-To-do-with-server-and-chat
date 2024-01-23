@@ -44,16 +44,16 @@ const ShoppingList = () => {
 
   const renderItem = ({ item }) => (
     <View style={{ flexDirection: "row", padding: 10 }}>
-      <Text
-        style={item.isChecked ? { textDecorationLine: "line-through" } : null}
-      >
-        {item.name}
-      </Text>
       <BouncyCheckbox
         isChecked={item.isChecked}
         text={item.onlist}
         onPress={() => handleCheckboxPress(item.name)}
       />
+      <Text
+        style={item.isChecked ? { textDecorationLine: "line-through" } : null}
+      >
+        {item.name}
+      </Text>
     </View>
   );
   const renderShoppingListTitle = ({ item }) => (
