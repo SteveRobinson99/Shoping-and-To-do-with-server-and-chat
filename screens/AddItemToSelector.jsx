@@ -3,6 +3,7 @@ import { View, TextInput, Button, Text } from "react-native";
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
 import { useNavigation } from "@react-navigation/native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import socket from "../utils/socket";
 
 const AddItemToSelector = () => {
   const navigation = useNavigation();
@@ -20,7 +21,7 @@ const AddItemToSelector = () => {
       isChecked: false,
     };
     setListItems([...listItems, newItem]);
-
+    socket.emit("addItemToList", { item: newItem });
     // Clear the fields after setting newItem, if needed
     // setItemName('');
     // setIsFavourite(false);

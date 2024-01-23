@@ -71,11 +71,17 @@ const ShoppingList = () => {
     socket.on("updateShoppingLists", (updatedLists) => {
       setShoppingLists(updatedLists);
     });
+    socket.on("updateListItems", (data) => {
+      if (data.listTitle === shoppingListTitle) {
+        setListItems(data.items);
+      }
+    });
 
     return () => {
       socket.off("updateShoppingLists");
+      socket.off("updateListItems");
     };
-  }, []);
+  }, [[shoppingListTitle]]);
 
   return shoppingListTitle == "" ? (
     <View>

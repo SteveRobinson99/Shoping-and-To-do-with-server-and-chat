@@ -4,6 +4,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import AddItemToSelector from "./AddItemToSelector";
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
 import { useNavigation } from "@react-navigation/native";
+import socket from "../utils/socket";
 
 const Selector = () => {
   const navigation = useNavigation();
