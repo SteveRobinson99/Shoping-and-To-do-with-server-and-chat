@@ -3,7 +3,7 @@ import { View, Text, FlatList, Button } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import AddItemToSelector from "./AddItemToSelector";
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 const Selector = () => {
   const navigation = useNavigation();
@@ -17,8 +17,6 @@ const Selector = () => {
     );
   };
 
-  
-
   // need to add check that item isnt already on list (avoid two childrn with same key (dev) error)
   const renderItem = ({ item }) => (
     <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
@@ -26,8 +24,8 @@ const Selector = () => {
         isChecked={false}
         text={item.onlist}
         onPress={() => toggleItemOnList(item.name)}
-        />
-        <Text>{item.name}</Text>
+      />
+      <Text>{item.name}</Text>
     </View>
   );
 
@@ -45,7 +43,7 @@ const Selector = () => {
 
       <Button
         title="Add New Item to Selector"
-        onPress={() => navigation.navigate('AddItem')}
+        onPress={() => navigation.navigate("AddItem")}
       />
     </View>
   );

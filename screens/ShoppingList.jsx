@@ -9,11 +9,12 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect} from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useNavigation } from "@react-navigation/native";
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
 import { styles } from "../assets/Styles";
+import socket from '../utils/socket';
 
 const ShoppingList = () => {
   const navigation = useNavigation();
@@ -40,6 +41,7 @@ const ShoppingList = () => {
   function handleTitle() {
     setShoppingListTitle(temporaryTitle);
     setShoppingLists([temporaryTitle, ...shoppingLists]);
+    socket.emit("addShoppingList", temporaryTitle);
   }
 
   const renderItem = ({ item }) => (
@@ -64,6 +66,16 @@ const ShoppingList = () => {
       <Text style={styles.text}>{item}</Text>
     </TouchableOpacity>
   );
+
+  useEffect(() => {
+    socket.on("updateShoppingLists", (updatedLists) => {
+      setShoppingLists(updatedLists);
+    });
+
+    return () => {
+      socket.off("updateShoppingLists");
+    };
+  }, []);
 
   return shoppingListTitle == "" ? (
     <View>
@@ -99,8 +111,10 @@ const ShoppingList = () => {
   ) : (
     <View>
       <View>
-    <Text style={{color: "black", textAlign: "center", fontSize: 16}}>{shoppingListTitle}</Text>
-    </View>
+        <Text style={{ color: "black", textAlign: "center", fontSize: 16 }}>
+          {shoppingListTitle}
+        </Text>
+      </View>
       <FlatList
         data={sortedItems}
         renderItem={renderItem}
