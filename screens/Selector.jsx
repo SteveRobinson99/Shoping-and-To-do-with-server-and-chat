@@ -39,7 +39,7 @@ const Selector = () => {
         keyExtractor={(item) => item.name}
       />
       <Button
-        title="Add Selected Items to the List"
+        title="Add or remove Selected Items"
         onPress={() => toggleItemOnList}
       />
 
