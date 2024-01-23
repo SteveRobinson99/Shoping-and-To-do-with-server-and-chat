@@ -9,9 +9,11 @@ I'm using useLayoutEffect which works before a re-render, this is known to cause
 
 
 # functionality
-items added to lists are atracked by frequency of use and filtered by frequency so most used apear at top of list
+items added to lists (are tracked by frequency of use and filtered by frequency) as well as filtered by favourites, so most used apear at top of list.
 
 ToDo's are displayed on a modal, so the link to socket.io for sharing is in the ShowModal.js
 ShoppingList is not displayed on a modal.
+
+shopping lists are all subject to live updates through socket.io, but the design is that a user will see the titles of all shopping lists, and can create a new list or select one. This will provide (or create) the current live version of that list, which can be updated in real time y any user viewing that list. This avoids unessasary network traffic updating lists a user is not engaged with, while allowing live collaboration on any list.
 
 

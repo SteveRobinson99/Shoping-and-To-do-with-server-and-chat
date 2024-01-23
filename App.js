@@ -10,7 +10,7 @@ import Login from "./screens/Login";
 import ShoppingList from "./screens/ShoppingList";
 import Selector from "./screens/Selector";
 import AddItemToSelector from "./screens/AddItemToSelector";
-import CustomHeaderButton from "./components/CustomHeaderButton";
+import CustomHeaderButton from "./Components/CustomHeaderButton";
 
 const Stack = createNativeStackNavigator();
 

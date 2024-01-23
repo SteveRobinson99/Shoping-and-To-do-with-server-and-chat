@@ -1,10 +1,11 @@
 const express = require("express");
-const { default: generateRandomID } = require("../utils/GenerateRandomID");
+
 
 const app = express();
 const PORT = 4000;
 const http = require("http").createServer(app);
 
+const generateRandomID = () => Math.random().toString(36).substring(2, 10);
 const socketIO = require("socket.io")(http, {
   cors: {
     origin: "*",
