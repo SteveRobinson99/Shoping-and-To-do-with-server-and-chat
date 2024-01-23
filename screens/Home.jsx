@@ -6,6 +6,8 @@ import ShowModal from "./ShowModal";
 import { styles } from "../assets/Styles"   //(to import rather than local style)
 import Todo from "./Todo";
 
+
+
 const Home = () => {
    
     const [visible, setVisible] = useState(false);
@@ -18,6 +20,7 @@ const Home = () => {
         };
 
         socket.on("todos", todosHandler);
+
 
         return () => {
             socket.off("todos", todosHandler);
