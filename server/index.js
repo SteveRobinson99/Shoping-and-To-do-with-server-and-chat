@@ -22,14 +22,25 @@ socketIO.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected to Socket.io!`);
 
   socket.on("addShoppingList", (newListTitle) => {
+    try{
     shoppingLists.push(newListTitle);
     socketIO.emit("updateShoppingLists", shoppingLists);
-  });
+  } catch (error) {
+    console.error("Error in addShoppingList:", error);
+    socket.emit("error", { message: "Error adding shopping list" });
+  }
+});
 
   socket.on("removeShoppingList", (listTitle) => {
+    try{
     shoppingLists = shoppingLists.filter((title) => title !== listTitle);
     socketIO.emit("updateShoppingLists", shoppingLists);
-  });
+  } catch (error) {
+    console.error("Error in removeShoppingList:", error);
+    socket.emit("error", { message: "Error removing shopping list" });
+  }
+});
+
 
   socket.on("addTodo", (todo) => {
     try {
