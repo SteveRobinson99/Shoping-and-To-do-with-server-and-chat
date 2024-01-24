@@ -9,12 +9,12 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useNavigation } from "@react-navigation/native";
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
 import { styles } from "../assets/Styles";
-import socket from '../utils/socket';
+import socket from "../utils/socket";
 
 const ShoppingList = () => {
   const navigation = useNavigation();

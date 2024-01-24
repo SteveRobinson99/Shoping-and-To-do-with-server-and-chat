@@ -7,24 +7,37 @@ import { useNavigation } from "@react-navigation/native";
 import socket from "../utils/socket";
 
 const Selector = () => {
-  const navigation = useNavigation();
   const { listItems, setListItems } = useContext(ShoppingItemsContext);
+  const navigation = useNavigation();
 
-  const toggleItemOnList = (itemName) => {
-    setListItems(
-      listItems.map((item) =>
-        item.name === itemName ? { ...item, onlist: !item.onlist } : item
-      )
+  const addCheckedItemsToList = () => {
+    const itemsToAdd = listItems.filter(
+      (item) => item.isChecked && !item.onlist
     );
+    socket.emit("addItemsToList", { itemsToAdd });
+  };
+
+  const removeCheckedItemsFromList = () => {
+    const itemsToRemove = listItems.filter(
+      (item) => item.isChecked && item.onlist
+    );
+    socket.emit("removeItemsFromList", { itemsToRemove });
   };
 
   // need to add check that item isnt already on list (avoid two childrn with same key (dev) error)
   const renderItem = ({ item }) => (
     <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
       <BouncyCheckbox
-        isChecked={false}
-        text={item.onlist}
-        onPress={() => toggleItemOnList(item.name)}
+        isChecked={item.isChecked}
+        onPress={(isChecked) => {
+          setListItems(
+            listItems.map((listItem) =>
+              listItem.name === item.name
+                ? { ...listItem, isChecked }
+                : listItem
+            )
+          );
+        }}
       />
       <Text>{item.name}</Text>
     </View>
@@ -38,8 +51,12 @@ const Selector = () => {
         keyExtractor={(item) => item.name}
       />
       <Button
-        title="Add or remove Selected Items"
-        onPress={() => toggleItemOnList}
+        title="Add Checked Items to List"
+        onPress={addCheckedItemsToList}
+      />
+      <Button
+        title="Remove Checked Items from List"
+        onPress={removeCheckedItemsFromList}
       />
 
       <Button

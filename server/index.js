@@ -17,29 +17,17 @@ app.use(express.json());
 
 let todoList = [];
 let shoppingLists = ["Quick Shop", "Full Shop"];
-let shoppingItems = {};
-
-
 
 socketIO.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected to Socket.io!`);
-  
-  socket.on("addItemToList", ({ listTitle, item }) => {
-    if (!shoppingItems[listTitle]) {
-      shoppingItems[listTitle] = [];
-    }
-    shoppingItems[listTitle].push(item);
-    socketIO.emit("updateListItems", { listTitle, items: shoppingItems[listTitle] });
-  });
-
 
   socket.on("addShoppingList", (newListTitle) => {
     shoppingLists.push(newListTitle);
     socketIO.emit("updateShoppingLists", shoppingLists);
   });
-  
+
   socket.on("removeShoppingList", (listTitle) => {
-    shoppingLists = shoppingLists.filter(title => title !== listTitle);
+    shoppingLists = shoppingLists.filter((title) => title !== listTitle);
     socketIO.emit("updateShoppingLists", shoppingLists);
   });
 
