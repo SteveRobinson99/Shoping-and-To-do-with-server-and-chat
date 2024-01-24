@@ -5,23 +5,25 @@ import AddItemToSelector from "./AddItemToSelector";
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
 import { useNavigation } from "@react-navigation/native";
 import socket from "../utils/socket";
+import { useShoppingListTitle } from "../Contexts/ShoppingListTitleContext"; //custom hook
 
 const Selector = () => {
   const { listItems, setListItems } = useContext(ShoppingItemsContext);
+  const { shoppingListTitle, setShoppingListTitle } = useShoppingListTitle();
   const navigation = useNavigation();
 
   const addCheckedItemsToList = () => {
     const itemsToAdd = listItems.filter(
       (item) => item.isChecked && !item.onlist
     );
-    socket.emit("addItemsToList", { itemsToAdd });
+    socket.emit("addItemsToList", { shoppingListTitle, itemsToAdd });
   };
 
   const removeCheckedItemsFromList = () => {
     const itemsToRemove = listItems.filter(
       (item) => item.isChecked && item.onlist
     );
-    socket.emit("removeItemsFromList", { itemsToRemove });
+    socket.emit("removeItemsFromList", { shoppingListTitle, itemsToRemove });
   };
 
   // need to add check that item isnt already on list (avoid two childrn with same key (dev) error)

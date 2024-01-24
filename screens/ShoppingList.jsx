@@ -13,6 +13,7 @@ import React, { useState, useContext, useEffect } from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useNavigation } from "@react-navigation/native";
 import { ShoppingItemsContext } from "../Contexts/ShoppingItemsContext";
+import { useShoppingListTitle } from "../Contexts/ShoppingListTitleContext"; //custom hook
 import { styles } from "../assets/Styles";
 import socket from "../utils/socket";
 
@@ -23,7 +24,7 @@ const ShoppingList = () => {
     "Quick Shop",
     "Full Shop",
   ]);
-  const [shoppingListTitle, setShoppingListTitle] = useState("");
+  const { shoppingListTitle, setShoppingListTitle } = useShoppingListTitle();
   const [temporaryTitle, setTemporaryTitle] = useState("");
   const sortedItems = listItems
     .filter((item) => item.onlist)

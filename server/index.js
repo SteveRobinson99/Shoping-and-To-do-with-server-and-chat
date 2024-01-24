@@ -22,25 +22,48 @@ socketIO.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected to Socket.io!`);
 
   socket.on("addShoppingList", (newListTitle) => {
-    try{
-    shoppingLists.push(newListTitle);
-    socketIO.emit("updateShoppingLists", shoppingLists);
-  } catch (error) {
-    console.error("Error in addShoppingList:", error);
-    socket.emit("error", { message: "Error adding shopping list" });
-  }
-});
+    try {
+      shoppingLists.push(newListTitle);
+      socketIO.emit("updateShoppingLists", shoppingLists);
+    } catch (error) {
+      console.error("Error in addShoppingList:", error);
+      socket.emit("error", { message: "Error adding shopping list" });
+    }
+  });
 
   socket.on("removeShoppingList", (listTitle) => {
-    try{
-    shoppingLists = shoppingLists.filter((title) => title !== listTitle);
-    socketIO.emit("updateShoppingLists", shoppingLists);
-  } catch (error) {
-    console.error("Error in removeShoppingList:", error);
-    socket.emit("error", { message: "Error removing shopping list" });
-  }
-});
+    try {
+      shoppingLists = shoppingLists.filter((title) => title !== listTitle);
+      socketIO.emit("updateShoppingLists", shoppingLists);
+    } catch (error) {
+      console.error("Error in removeShoppingList:", error);
+      socket.emit("error", { message: "Error removing shopping list" });
+    }
+  });
 
+  socket.on("addItemsToList", ({ shoppingListTitle, itemsToAdd }) => {
+    try {
+      socketIO.emit("updateListItems", {
+        listTitle: shoppingListTitle,
+        items: itemsToAdd,
+      });
+    } catch (error) {
+      console.error("Error in addItemsToList:", error);
+      socket.emit("error", { message: "Error adding items to list" });
+    }
+  });
+
+  socket.on("removeItemsFromList", ({ shoppingListTitle, itemsToRemove }) => {
+    try {
+      socketIO.emit("updateListItems", {
+        listTitle: shoppingListTitle,
+        items: itemsToRemove,
+      });
+    } catch (error) {
+      console.error("Error in removeItemsFromList:", error);
+      socket.emit("error", { message: "Error removing items from list" });
+    }
+  });
 
   socket.on("addTodo", (todo) => {
     try {

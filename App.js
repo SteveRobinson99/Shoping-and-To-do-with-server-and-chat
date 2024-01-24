@@ -11,6 +11,7 @@ import ShoppingList from "./screens/ShoppingList";
 import Selector from "./screens/Selector";
 import AddItemToSelector from "./screens/AddItemToSelector";
 import CustomHeaderButton from "./Components/CustomHeaderButton";
+import { ShoppingListTitleProvider } from "./Contexts/ShoppingListTitleContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,46 +44,48 @@ export default function App() {
   return (
     <UserProvider>
       <ShoppingItemsProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{
-                headerRight: () => (
-                  <CustomHeaderButton
-                    title="Shopping List"
-                    navigationTarget="To Buy"
-                  />
-                ),
-              }}
-            />
-            <Stack.Screen name="Comments" component={Comments} />
-            <Stack.Screen
-              name="To Buy"
-              component={ShoppingList}
-              options={{
-                headerRight: () => (
-                  <CustomHeaderButton
-                    title="To Do List"
-                    navigationTarget="Home"
-                  />
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="Selector"
-              component={Selector}
-              options={{ headerRight: () => <CustomHeaderRight /> }}
-            />
-            <Stack.Screen name="AddItem" component={AddItemToSelector} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <ShoppingListTitleProvider>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{
+                  headerRight: () => (
+                    <CustomHeaderButton
+                      title="Shopping List"
+                      navigationTarget="To Buy"
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen name="Comments" component={Comments} />
+              <Stack.Screen
+                name="To Buy"
+                component={ShoppingList}
+                options={{
+                  headerRight: () => (
+                    <CustomHeaderButton
+                      title="To Do List"
+                      navigationTarget="Home"
+                    />
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="Selector"
+                component={Selector}
+                options={{ headerRight: () => <CustomHeaderRight /> }}
+              />
+              <Stack.Screen name="AddItem" component={AddItemToSelector} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ShoppingListTitleProvider>
       </ShoppingItemsProvider>
     </UserProvider>
   );
