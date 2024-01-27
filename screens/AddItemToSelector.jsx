@@ -22,13 +22,15 @@ const AddItemToSelector = () => {
     };
     setListItems([...listItems, newItem]);
     socket.emit("addItemToList", { item: newItem });
-    // Clear the fields after setting newItem, if needed
+    // Clear the fields after setting newItem, if needed, shouldn't need as single item, cleared at start
     // setItemName('');
     // setIsFavourite(false);
     // setOnList(false);
 
     navigation.goBack();
   };
+
+//need remove item logic - add a delete icon to each item on selector like toDo list, use emit with oldItem
 
   return (
     <View>

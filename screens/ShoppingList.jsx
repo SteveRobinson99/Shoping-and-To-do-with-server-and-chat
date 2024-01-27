@@ -30,14 +30,16 @@ const ShoppingList = () => {
     .filter((item) => item.onlist)
     .sort((a, b) => (a.favourite === b.favourite ? 0 : a.favourite ? -1 : 1));
 
-  const handleCheckboxPress = (itemName) => {
-    // Toggle the isChecked property of the item with the given name
-    setListItems(
-      listItems.map((item) =>
-        item.name === itemName ? { ...item, isChecked: !item.isChecked } : item
-      )
-    );
-  };
+  // const handleCheckboxPress = (itemName) => {
+  //   // Toggle the isChecked property of the item with the given name
+  //   setListItems(
+  //     listItems.map((item) =>
+  //       item.name === itemName ? { ...item, isChecked: !item.isChecked } : item
+  //     )
+  //   );
+  // };
+
+  //need to re-introduce strikethrough handling (with state to rerender?) 
 
   function handleTitle() {
     setShoppingListTitle(temporaryTitle);
@@ -50,7 +52,7 @@ const ShoppingList = () => {
       <BouncyCheckbox
         isChecked={item.isChecked}
         text={item.onlist}
-        onPress={() => handleCheckboxPress(item.name)}
+        // onPress={() => handleCheckboxPress(item.name)}
       />
       <Text
         style={item.isChecked ? { textDecorationLine: "line-through" } : null}
