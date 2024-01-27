@@ -10,7 +10,9 @@ export const ShoppingItemsProvider = ({ children }) => {
   ]);
 
   return (
-    <ShoppingItemsContext.Provider value={{ shoppingListItems, setShoppingListItems }}>
+    <ShoppingItemsContext.Provider
+      value={{ shoppingListItems, setShoppingListItems }}
+    >
       {children}
     </ShoppingItemsContext.Provider>
   );

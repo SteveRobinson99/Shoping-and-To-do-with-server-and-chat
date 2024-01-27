@@ -8,22 +8,27 @@ import socket from "../utils/socket";
 import { useShoppingListTitle } from "../Contexts/ShoppingListTitleContext"; //custom hook
 
 const Selector = () => {
-  const { listItems, setListItems } = useContext(ShoppingItemsContext);
+  const { shoppingListItems, setShoppingListItems } =
+    useContext(ShoppingItemsContext);
   const { shoppingListTitle, setShoppingListTitle } = useShoppingListTitle();
   const navigation = useNavigation();
 
   const addCheckedItemsToShoppingList = () => {
-    const itemsToAdd = listItems.filter(
+    const itemsToAdd = shoppingListItems.filter(
       (item) => item.isChecked && !item.onlist
-    );
+    ); // can add optimistic render to add loacally also for if offline
     socket.emit("addItemsToShoppingList", { shoppingListTitle, itemsToAdd });
   };
 
   const removeCheckedItemsFromShoppingList = () => {
-    const itemsToRemove = listItems.filter(
+    const itemsToRemove = shoppingListItems.filter(
       (item) => item.isChecked && item.onlist
+      // can add optimistic render to remove loacally also for if offline
     );
-    socket.emit("removeItemsFromList", { shoppingListTitle, itemsToRemove });
+    socket.emit("removeItemsFromShoppingList", {
+      shoppingListTitle,
+      itemsToRemove,
+    });
   };
 
   // need to add check that item isnt already on list (avoid two childrn with same key (dev) error)
@@ -32,8 +37,8 @@ const Selector = () => {
       <BouncyCheckbox
         isChecked={item.isChecked}
         onPress={(isChecked) => {
-          setListItems(
-            listItems.map((listItem) =>
+          setShoppingListItems(
+            shoppingListItems.map((listItem) =>
               listItem.name === item.name
                 ? { ...listItem, isChecked }
                 : listItem
@@ -48,7 +53,7 @@ const Selector = () => {
   return (
     <View>
       <FlatList
-        data={listItems}
+        data={shoppingListItems}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
       />

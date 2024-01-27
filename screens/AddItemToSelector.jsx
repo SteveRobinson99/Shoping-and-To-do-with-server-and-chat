@@ -7,7 +7,8 @@ import socket from "../utils/socket";
 
 const AddItemToSelector = () => {
   const navigation = useNavigation();
-  const { listItems, setListItems } = useContext(ShoppingItemsContext);
+  const { shoppingListItems, setShoppingListItems } =
+    useContext(ShoppingItemsContext);
 
   const [itemName, setItemName] = useState("");
   const [isFavourite, setIsFavourite] = useState(false);
@@ -20,8 +21,8 @@ const AddItemToSelector = () => {
       onlist: onList,
       isChecked: false,
     };
-    setListItems([...listItems, newItem]);
-    socket.emit("addItemToList", { item: newItem });
+    setShoppingListItems([...shoppingListItems, newItem]);
+    socket.emit("addItemToShoppingList", { item: newItem });
     // Clear the fields after setting newItem, if needed, shouldn't need as single item, cleared at start
     // setItemName('');
     // setIsFavourite(false);
@@ -30,7 +31,7 @@ const AddItemToSelector = () => {
     navigation.goBack();
   };
 
-//need remove item logic - add a delete icon to each item on selector like toDo list, use emit with oldItem
+  //need remove item logic - add a delete icon to each item on selector like toDo list, use emit with oldItem
 
   return (
     <View>

@@ -41,10 +41,12 @@ socketIO.on("connection", (socket) => {
     }
   });
 
-  socket.on("addItemsToList", ({ newItem }) => {
+  socket.on("addItemsToShoppingList", ({ shoppingListTitle, itemsToAdd }) => {
     try {
+      //logic to add items making either items to add or new item list for sending out
       socketIO.emit("updateListItems", {
-        item: newItem,
+        listTitle: shoppingListTitle,
+        items: itemsToAdd,
       });
     } catch (error) {
       console.error("Error in addItemsToList:", error);
@@ -52,16 +54,20 @@ socketIO.on("connection", (socket) => {
     }
   });
 
-  socket.on("removeItemsFromList", ({ oldItem }) => {
-    try {
-      socketIO.emit("updateListItems", {
-        item: oldItem,
-      });
-    } catch (error) {
-      console.error("Error in removeItemsFromList:", error);
-      socket.emit("error", { message: "Error removing items from list" });
+  socket.on(
+    "removeItemsFromList",
+    ({ listTitle: shoppingListTitle, items: itemsToRemove }) => {
+      try {
+        socketIO.emit("updateListItems", {
+          listTitle: shoppingListTitle,
+          items: itemsToRemove,
+        });
+      } catch (error) {
+        console.error("Error in removeItemsFromList:", error);
+        socket.emit("error", { message: "Error removing items from list" });
+      }
     }
-  });
+  );
 
   socket.on("addTodo", (todo) => {
     try {

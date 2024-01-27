@@ -19,14 +19,14 @@ import socket from "../utils/socket";
 
 const ShoppingList = () => {
   const navigation = useNavigation();
-  const { listItems, setListItems } = useContext(ShoppingItemsContext);
+  const { shoppingListItems, setShoppingListItems } = useContext(ShoppingItemsContext);
   const [shoppingLists, setShoppingLists] = useState([
     "Quick Shop",
     "Full Shop",
   ]);
   const { shoppingListTitle, setShoppingListTitle } = useShoppingListTitle();
   const [temporaryTitle, setTemporaryTitle] = useState("");
-  const sortedItems = listItems
+  const sortedItems = shoppingListItems
     .filter((item) => item.onlist)
     .sort((a, b) => (a.favourite === b.favourite ? 0 : a.favourite ? -1 : 1));
 
@@ -39,7 +39,7 @@ const ShoppingList = () => {
   //   );
   // };
 
-  //need to re-introduce strikethrough handling (with state to rerender?) 
+  //need to re-introduce strikethrough handling (with state to rerender?)
 
   function handleTitle() {
     setShoppingListTitle(temporaryTitle);
