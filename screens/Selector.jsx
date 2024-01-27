@@ -12,14 +12,14 @@ const Selector = () => {
   const { shoppingListTitle, setShoppingListTitle } = useShoppingListTitle();
   const navigation = useNavigation();
 
-  const addCheckedItemsToList = () => {
+  const addCheckedItemsToShoppingList = () => {
     const itemsToAdd = listItems.filter(
       (item) => item.isChecked && !item.onlist
     );
-    socket.emit("addItemsToList", { shoppingListTitle, itemsToAdd });
+    socket.emit("addItemsToShoppingList", { shoppingListTitle, itemsToAdd });
   };
 
-  const removeCheckedItemsFromList = () => {
+  const removeCheckedItemsFromShoppingList = () => {
     const itemsToRemove = listItems.filter(
       (item) => item.isChecked && item.onlist
     );
@@ -54,11 +54,11 @@ const Selector = () => {
       />
       <Button
         title="Add Checked Items to List"
-        onPress={addCheckedItemsToList}
+        onPress={addCheckedItemsToShoppingList}
       />
       <Button
         title="Remove Checked Items from List"
-        onPress={removeCheckedItemsFromList}
+        onPress={removeCheckedItemsFromShoppingList}
       />
 
       <Button
