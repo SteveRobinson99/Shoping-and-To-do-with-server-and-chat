@@ -16,7 +16,12 @@ const Selector = () => {
   const addCheckedItemsToShoppingList = () => {
     const itemsToAdd = shoppingListItems.filter(
       (item) => item.isChecked && !item.onlist
-    ); // can add optimistic render to add loacally also for if offline
+    );
+    itemsToAdd.forEach((item) => {
+      item.onList = true;
+    }); // note the reference is the same so updating the shallow copy itemsToAdd also updates the shoppingListItems
+    //so the emited message is an array of objects with onList:true - for other clients these should be added
+    // when sent to shoppingList.jsx, they will appear in the list.
     socket.emit("addItemsToShoppingList", { shoppingListTitle, itemsToAdd });
   };
 
